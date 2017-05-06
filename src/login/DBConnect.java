@@ -1,4 +1,4 @@
-package sample;
+package login;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.lang.StringBuilder;

@@ -1,0 +1,20 @@
+#pane{
+    -fx-background-color: #FFFFFF;
+}
+
+#title{
+    -fx-text-fill: #d80e25;
+    -fx-font-family: "Lucida Sans";
+    -fx-font-size: 30px;
+}
+
+.butoons{
+    -fx-background-color: #d80e25;
+    -fx-font-family: "Lucida Sans";
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 5px;
+    -fx-border-style: solid;
+    -fx-border-width: 0px 0px 3px 0px;
+    -fx-border-color: #900919;
+}

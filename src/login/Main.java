@@ -1,23 +1,24 @@
-package sample;
+package login;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.sql.Connection;
 
 public class Main extends Application {
 
+    static Stage window;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root, 450, 450);
-        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage wind) throws Exception{
+        window = wind; //initialize main window
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        window.setTitle("NeverNote");
+        Scene scene = new Scene(root);
+        window.setScene(scene);
+        window.show();
         DBConnect dbconnect = DBConnect.getInstance();
         Connection conn = dbconnect.connect();
         dbconnect.interogate("SELECT * FROM Users where Username='test1'");

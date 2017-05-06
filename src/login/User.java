@@ -1,11 +1,6 @@
-package sample;
+package login;
 
-import com.sun.javafx.scene.layout.region.Margins;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.PreparedStatement;
 import java.util.Random;
 import java.security.MessageDigest;
 /**

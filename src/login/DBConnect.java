@@ -5,11 +5,13 @@ import java.lang.StringBuilder;
 import java.sql.ResultSet;
 import java.sql.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 /**
  * Created by C on 3/25/2017.
  */
 public class DBConnect {
-    private static String databaseURL = "jdbc:mysql://52.166.74.242:3306/Test";
+    private static String databaseURL = "jdbc:mysql://52.166.74.242:3306/Nevernote";
     private static String user = "luckystrike";
     private static String password = "madafaka123";
     private static Connection conn = null;
@@ -35,24 +37,24 @@ public class DBConnect {
         }
 
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT Password, Salt FROM Users WHERE Username = ? LIMIT 1");
-            preparedStatement.setString(1, Username);
-            ResultSet resultSet = preparedStatement.executeQuery();
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT Password, Salt FROM Users WHERE Username = ? LIMIT 1");
+                preparedStatement.setString(1, Username);
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (!resultSet.first()) {
-                System.err.println("Username not found!");
-                return false;
-            } else {
-                User verifyUser = new User(Username,Password,resultSet.getString("Salt"));
-                if (verifyUser.getHash().equals(resultSet.getString("Password"))) {
-                    System.out.println("Logged in");
-                    return true;
-                } else {
-                    System.err.println("Wrong Password!");
+                if (!resultSet.first()) {
+                    System.err.println("Username not found!");
                     return false;
-                }
+                } else {
+                    User verifyUser = new User(Username, Password, resultSet.getString("Salt"));
+                    if (verifyUser.getHash().equals(resultSet.getString("Password"))) {
+                        System.out.println("Logged in");
+                        return true;
+                    } else {
+                        System.err.println("Wrong Password!");
+                        return false;
+                    }
 
-            }
+                }
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -62,7 +64,7 @@ public class DBConnect {
     }
 
     //functie de signup
-    public boolean Signup(String Username,String Password) {
+    public boolean Signup(String Username,String Password,String FirstName,String Lastname,String Email,LocalDate birthDate) {
         try {
             PreparedStatement preparedStatementVerify = conn.prepareStatement("SELECT * FROM Users WHERE Username = ? LIMIT 1");
             preparedStatementVerify.setString(1, Username);
@@ -70,10 +72,14 @@ public class DBConnect {
 
             if (!resultSet.first()) {
                 User newUser = new User(Username, Password);
-                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Users (Username,Password,Salt) Values (?, ?, ?)");
+                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Users (Username,Password,Salt,firstname,lastname,birth,email) Values (?, ?, ?, ?, ?, ?, ?)");
                 preparedStatement.setString(1,Username);
                 preparedStatement.setString(2,newUser.getHash());
                 preparedStatement.setString(3,new StringBuilder(newUser.getSalt().toString()).reverse().toString());
+                preparedStatement.setString(4,FirstName);
+                preparedStatement.setString(5,Lastname);
+                preparedStatement.setString(6,birthDate.toString());
+                preparedStatement.setString(7,Email);
                 preparedStatement.executeUpdate();
                 return true;
             }

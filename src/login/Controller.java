@@ -27,8 +27,6 @@ public class Controller implements Initializable{
     public void initialize(URL fxmlFileLocation, ResourceBundle resource) {
         this.fxmlFileLocation = fxmlFileLocation;
         this.resource = resource;
-        assert login != null : "fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.";
-        assert signup   != null : "fx:id=\"signup\" was not injected: check your FXML file 'simple.fxml'.";
 
         login.setOnAction(new EventHandler<ActionEvent>(){
             @Override

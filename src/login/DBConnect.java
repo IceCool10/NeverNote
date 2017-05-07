@@ -27,6 +27,13 @@ public class DBConnect {
 
     //verificam daca credentialele de login au fost corecte
     public boolean checkLogin(String Username, String Password) {
+        //check if username and password are not empty
+        if (Username.length() == 0 || Password.length() == 0)
+        {
+            System.err.println("Username or Password are empty!");
+            return false;
+        }
+
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT Password, Salt FROM Users WHERE Username = ? LIMIT 1");
             preparedStatement.setString(1, Username);

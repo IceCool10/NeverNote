@@ -12,14 +12,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 public class Controller implements Initializable{
     @FXML
     private Button login;
     private URL fxmlFileLocation;
     private ResourceBundle resource;
+    public Label login_warning;
     public Button signup;
     public TextField userid;
     public PasswordField passid;
@@ -36,7 +39,18 @@ public class Controller implements Initializable{
                 System.out.println(passid.getText());
 
                 DBConnect dbConnect = DBConnect.getInstance();
-                dbConnect.checkLogin(userid.getText(),passid.getText());
+                boolean checkAns = dbConnect.checkLogin(userid.getText(),passid.getText());
+
+                if (checkAns == false)
+                {
+                    login_warning.setText("Username or Password incorrect!");
+                    login_warning.setTextFill(Color.valueOf("#f53636"));
+                }
+                else
+                {
+                    login_warning.setText("Successful Login!");
+                    login_warning.setTextFill(Color.valueOf("#69e760"));
+                }
             }
         });
 

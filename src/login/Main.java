@@ -1,11 +1,13 @@
 package login;
 
+import dbmodel.Notebook;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -26,11 +28,15 @@ public class Main extends Application {
 
         DBConnect dbconnect = DBConnect.getInstance();
         Connection conn = dbconnect.connect();
+
         dbconnect.interogate("SELECT * FROM Users where Username='test1'");
+
+
     }
 
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }

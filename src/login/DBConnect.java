@@ -108,7 +108,26 @@ public class DBConnect {
             index++;
         }
     }
-
+    public static boolean insertNotebook(String Nume,String Username) {
+        try {
+            PreparedStatement insertNotebook = conn.prepareStatement("INSERT INTO Notebook (Nume,user) VALUES (?,?)");
+            insertNotebook.setString(1,Nume);
+            insertNotebook.setString(2,Username);
+            int result = insertNotebook.executeUpdate();
+            if(result > 0) {
+                System.out.println("Notebook inserted");
+                return true;
+            }
+            else {
+                System.err.println("Error on insertion");
+                return false;
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("Eroare");
+            return false;
+        }
+    }
 
     public static ArrayList<Notebook> getAllNotebooks(String Username) {
         ArrayList<Notebook> notebooks = new ArrayList<>();

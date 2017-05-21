@@ -40,12 +40,14 @@ public class Controller implements Initializable{
                 System.out.println(userid.getText());
                 System.out.println(passid.getText());
 
+                //TEST BD
                 DBConnect dbConnect = DBConnect.getInstance();
+                dbConnect.insertNotebook("Test3","test5");
                 ArrayList<Notebook> notebooks = dbConnect.getAllNotebooks("test5");
                 for(Notebook nb : notebooks) {
                     nb.getNotes();
                 }
-
+                //
                 boolean checkAns = dbConnect.checkLogin(userid.getText(),passid.getText());
 
                 if (checkAns == false)

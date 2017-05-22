@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="715.0" stylesheets="@../css_files/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NotesWindow.NewNoteController">
+   <children>
+      <Label id="username" layoutX="59.0" layoutY="44.0" text="Note title" />
+      <TextField fx:id="noteTitle" layoutX="59.0" layoutY="78.0" />
+      <Label id="username" fx:id="noteText" layoutX="59.0" layoutY="126.0" text="Note text" />
+      <TextArea fx:id="noteTextArea" layoutX="59.0" layoutY="160.0" prefHeight="188.0" prefWidth="610.0" />
+      <Button fx:id="submitNote" layoutX="281.0" layoutY="380.0" mnemonicParsing="false" styleClass="butoons" text="Submit" />
+      <ComboBox editable="true" layoutX="59.0" layoutY="380.0" prefHeight="26.0" prefWidth="171.0" promptText="Set tags for note" />
+   </children>
+</AnchorPane>

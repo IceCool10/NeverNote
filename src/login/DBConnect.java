@@ -108,6 +108,54 @@ public class DBConnect {
             index++;
         }
     }
+
+    public static boolean insertTag(String NumeTag,Nota nota) {
+        try {
+            PreparedStatement insertTag = conn.prepareStatement("INSERT INTO TagInfo (NumeTag,IdNota)  values (?,?)");
+            insertTag.setString(1,NumeTag);
+            insertTag.setInt(2,nota.getId());
+
+            int result = insertTag.executeUpdate();
+            if(result > 0) {
+                System.out.println("Tag inserted");
+                return true;
+            }
+            else {
+                System.err.println("Error on insertion");
+                return false;
+            }
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean insertNote(String titlu,String text,Date date,String Notebook) {
+        try {
+            PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Titlu,Text,Data,Notebook) VALUES (?,?,?,?)");
+            insertNote.setString(1,titlu);
+            insertNote.setString(2,text);
+            insertNote.setString(3,date.toString());
+            insertNote.setString(4,Notebook);
+
+            int result = insertNote.executeUpdate();
+
+            if(result > 0) {
+                System.out.println("Note inserted");
+                return true;
+            }
+            else {
+                System.err.println("Error on insertion");
+                return false;
+            }
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
     public static boolean insertNotebook(String Nume,String Username) {
         try {
             PreparedStatement insertNotebook = conn.prepareStatement("INSERT INTO Notebook (Nume,user) VALUES (?,?)");

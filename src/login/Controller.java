@@ -1,5 +1,6 @@
 package login;
 
+import dbmodel.Nota;
 import dbmodel.Notebook;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -45,8 +47,16 @@ public class Controller implements Initializable{
                 dbConnect.insertNotebook("Test3","test5");
                 ArrayList<Notebook> notebooks = dbConnect.getAllNotebooks("test5");
                 for(Notebook nb : notebooks) {
-                    nb.getNotes();
+                    ArrayList<Nota>  note = nb.getNotes();
+                    for(Nota nota : note) {
+                        System.out.println(nota.getId() + " " + nota.getText() + " " + nota.getTitlu() + " " + nota.getData());
+                       // dbConnect.insertTag("Tag3",nota);
+                    }
                 }
+                java.util.Date utilDate = new java.util.Date();
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                //dbConnect.insertNote("Titlu2","TEXT2",sqlDate,"Test1");
+
                 //
                 boolean checkAns = dbConnect.checkLogin(userid.getText(),passid.getText());
 

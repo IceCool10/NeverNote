@@ -59,6 +59,16 @@ public class Controller implements Initializable{
                 {
                     login_warning.setText("Successful Login!");
                     login_warning.setTextFill(Color.valueOf("#69e760"));
+
+                    //change scene to Notes Window
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("../NotesWindow/noteswindows.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene scene = new Scene(root);
+                    Main.window.setScene(scene);
                 }
             }
         });

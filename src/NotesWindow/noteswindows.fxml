@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import org.controlsfx.control.CheckComboBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="750.0" stylesheets="@../css_files/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NotesWindow.HeaderControls">
+   <children>
+      <AnchorPane layoutX="142.0" layoutY="14.0" prefHeight="647.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="username" fx:id="usernameLabel" alignment="CENTER" layoutX="-1.0" prefHeight="65.0" prefWidth="227.0" text="Username" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane fx:id="scrollPane" layoutY="145.0" prefHeight="502.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+         </children></AnchorPane>
+      <HBox alignment="CENTER" layoutY="78.0" prefHeight="47.0" prefWidth="750.0" spacing="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="newNotebook" mnemonicParsing="false" prefHeight="78.0" prefWidth="297.0" styleClass="butoons" text="New notebook">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="newNote" mnemonicParsing="false" prefHeight="54.0" prefWidth="305.0" styleClass="butoons" text="New note">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="363.0" layoutY="-17.0" prefHeight="65.0" prefWidth="562.0" spacing="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <CheckComboBox fx:id="notebooksChoiceBox" prefHeight="35.0" prefWidth="112.0" styleClass="check-combo-box">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </CheckComboBox>
+            <CheckComboBox fx:id="tagsChoiceBox" prefHeight="35.0" prefWidth="112.0" styleClass="check-combo-box">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </CheckComboBox>
+            <Button fx:id="searchNotes" mnemonicParsing="false" styleClass="butoons" text="Search Notes">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

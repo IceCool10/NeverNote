@@ -26,6 +26,10 @@ public class User {
 
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public User(String username, String password, String salt) {
         this.username   =   username;
         this.password   =   password;

@@ -21,7 +21,7 @@ public class DBConnect {
     private static String password = "madafaka123";
     private static Connection conn = null;
     private static DBConnect instance = null;
-
+    private static User verifyUser;
     //SINGLETON
 
     private DBConnect() { }
@@ -31,7 +31,9 @@ public class DBConnect {
             return new DBConnect();
         return instance;
     }
-
+    public static User getUser() {
+        return DBConnect.verifyUser;
+    }
     //verificam daca credentialele de login au fost corecte
     public boolean checkLogin(String Username, String Password) {
         //check if username and password are not empty
@@ -51,7 +53,7 @@ public class DBConnect {
                     resultSet.close();
                     return false;
                 } else {
-                    User verifyUser = new User(Username, Password, resultSet.getString("Salt"));
+                    verifyUser = new User(Username, Password, resultSet.getString("Salt"));
                     if (verifyUser.getHash().equals(resultSet.getString("Password"))) {
                         System.out.println("Logged in");
                         resultSet.close();

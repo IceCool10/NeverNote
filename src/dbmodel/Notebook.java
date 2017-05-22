@@ -37,7 +37,8 @@ public class Notebook {
         return this.user;
     }
 
-    public void getNotes() {
+    public ArrayList<Nota> getNotes() {
+        /*
         for(Nota nota : this.notes) {
             System.out.println(nota.getId() + " " + nota.getData() + " " + nota.getTitlu() + " " + nota.getText());
             System.out.print("Tags : ");
@@ -45,6 +46,8 @@ public class Notebook {
                 System.out.print(tag.getNume() + " ");
             }
         }
+        */
+        return this.notes;
     }
 
 }

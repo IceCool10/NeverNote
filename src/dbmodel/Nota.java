@@ -14,6 +14,7 @@ public class Nota {
         private int id;
         private String titlu;
         private String text;
+        private String nume;
         private Date data;
         private String Notebook;
 
@@ -21,8 +22,9 @@ public class Nota {
             this.tags   =   new ArrayList<>();
         }
 
-        public Nota(int id, String titlu, String text, Date data, String Notebook) {
+        public Nota(int id, String nume,String titlu, String text, Date data, String Notebook) {
             this.id         =   id;
+            this.nume       =   nume;
             this.titlu      =   titlu;
             this.text       =   text;
             this.data       =   data;
@@ -45,6 +47,8 @@ public class Nota {
         public Date getData() {
             return this.data;
         }
+
+        public String getNume() {return this.nume;}
 
         public String getNotebook() {
             return this.Notebook;

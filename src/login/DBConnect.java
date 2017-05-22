@@ -83,12 +83,13 @@ public class DBConnect {
                 Notes.beforeFirst();
                 while (Notes.next()) {
                     int id = Notes.getInt("Id");
+                    String nume  = Notes.getString("Nume");
                     String titlu = Notes.getString("Titlu");
                     String text  = Notes.getString("Text");
                     java.sql.Date date = Notes.getDate("Data");
                     String Notebook    = Notes.getString("Notebook");
                     System.out.println(id + " " + titlu + " " + text + " " + date + " " + Notebook);
-                    nb.notes.add(new Nota(id,titlu,text,date,Notebook));
+                    nb.notes.add(new Nota(id,nume,titlu,text,date,Notebook));
                     System.out.println(notebooks.get(index).notes.get(0).getId());
                     PreparedStatement getTags = conn.prepareStatement("SELECT * from TagInfo WHERE IdNota = ?");
                     getTags.setInt(1, Notes.getInt("id"));
@@ -131,13 +132,35 @@ public class DBConnect {
         }
     }
 
-    public static boolean insertNote(String titlu,String text,Date date,String Notebook) {
+    public static boolean updateNote(String Text,String Nume) {
         try {
-            PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Titlu,Text,Data,Notebook) VALUES (?,?,?,?)");
-            insertNote.setString(1,titlu);
-            insertNote.setString(2,text);
-            insertNote.setString(3,date.toString());
-            insertNote.setString(4,Notebook);
+            PreparedStatement updateNote = conn.prepareStatement("UPDATE Note SET Text = ? WHERE Nume = ?");
+            updateNote.setString(1,Text);
+            updateNote.setString(2,Nume);
+            int result = updateNote.executeUpdate();
+            if(result > 0) {
+                System.out.println("Updated");
+                return true;
+            }
+            else {
+                System.out.println("Error on update");
+                return false;
+            }
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean insertNote(String nume,String titlu,String Nume,String text,Date date,String Notebook) {
+        try {
+            PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Nume,Titlu,Text,Data,Notebook) VALUES (?,?,?,?)");
+            insertNote.setString(1,nume);
+            insertNote.setString(2,titlu);
+            insertNote.setString(3,text);
+            insertNote.setString(4,date.toString());
+            insertNote.setString(5,Notebook);
 
             int result = insertNote.executeUpdate();
 

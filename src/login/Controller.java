@@ -49,12 +49,13 @@ public class Controller implements Initializable{
                 for(Notebook nb : notebooks) {
                     ArrayList<Nota>  note = nb.getNotes();
                     for(Nota nota : note) {
-                        System.out.println(nota.getId() + " " + nota.getText() + " " + nota.getTitlu() + " " + nota.getData());
+                        System.out.println(nota.getId() + " " + nota.getNume() + " " + nota.getText() + " " + nota.getTitlu() + " " + nota.getData());
                        // dbConnect.insertTag("Tag3",nota);
                     }
                 }
                 java.util.Date utilDate = new java.util.Date();
                 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                dbConnect.updateNote("New Text","Nume2");
                 //dbConnect.insertNote("Titlu2","TEXT2",sqlDate,"Test1");
 
                 //

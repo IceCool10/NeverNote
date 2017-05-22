@@ -1,6 +1,9 @@
 package NotesWindow;
 
 
+import dbmodel.Nota;
+import dbmodel.Notebook;
+import dbmodel.Tag;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,9 +23,10 @@ import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class HeaderControlsController implements Initializable{
+public class HeaderControls implements Initializable{
     @FXML
     private URL fxmlFileLocation;
     private ResourceBundle resource;
@@ -83,5 +87,17 @@ public class HeaderControlsController implements Initializable{
                 createNoteWindow.show();
             }
         });
+
+        //populate checkComboBoxes
+        ArrayList<Notebook> notebooks = DBConnect.getAllNotebooks(user.getUsername());
+        for(Notebook nb : notebooks) {
+            ArrayList<Nota>  note = nb.getNotes();
+            for(Nota nota : note) {
+                notebooksChoiceBox.getItems().add(nota.getNume());
+                for(Tag tag : nota.tags) {
+                    tagsChoiceBox.getItems().add(tag.getNume());
+                }
+            }
+        }
     }
 }

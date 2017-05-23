@@ -71,9 +71,10 @@ public class NewNoteController implements Initializable {
                 if (check == true) {
                     warningMessage.setText("Note created!");
                     warningMessage.setTextFill(Color.valueOf("#69e760"));
-
+                    java.util.Date utilDate = new java.util.Date();
+                    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                     String notebook = notebookChoice.getSelectionModel().getSelectedItem().toString();
-                    DBConnect.insertNote(noteTitle.getText(), noteTitle.getText(), noteText.getText(), new Date(214135), notebook);
+                    DBConnect.insertNote(noteTitle.getText(), noteTitle.getText(), noteText.getText(), sqlDate, notebook);
 
                     //insert tag for note
                     Object item = tagsSetter.getSelectionModel().getSelectedItem();

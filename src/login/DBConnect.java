@@ -174,7 +174,7 @@ public class DBConnect {
 
     public static boolean insertNote(String nume, String titlu, String text, Date date, String Notebook) {
         try {
-            PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Nume,Titlu,Text,Data,Notebook) VALUES (?,?,?,?)");
+            PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Nume,Titlu,Text,Data,Notebook) VALUES (?,?,?,?,?)");
             insertNote.setString(1,nume);
             insertNote.setString(2,titlu);
             insertNote.setString(3,text);

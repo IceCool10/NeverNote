@@ -72,7 +72,24 @@ public class DBConnect {
         }
 
     }
-
+    public static Nota getNota(String nume) throws SQLException {
+        PreparedStatement getNota = conn.prepareStatement("SELECT * FROM Note WHERE Nume = ? LIMIT 1");
+        getNota.setString(1,nume);
+        ResultSet rs = getNota.executeQuery();
+        if(rs.first()) {
+            rs.beforeFirst();
+            while(rs.next()) {
+                int id = rs.getInt("Id");
+                String numeNota  = rs.getString("Nume");
+                String titlu = rs.getString("Titlu");
+                String text  = rs.getString("Text");
+                java.sql.Date date = rs.getDate("Data");
+                String Notebook    = rs.getString("Notebook");
+                return new Nota(id,numeNota,titlu,text,date,Notebook);
+            }
+        }
+        return null;
+    }
     public static void getAllNotes(ArrayList<Notebook> notebooks) throws SQLException {
 
         for (Notebook nb : notebooks) {

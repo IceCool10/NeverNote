@@ -14,6 +14,7 @@ import login.User;
 import org.controlsfx.control.CheckComboBox;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -32,6 +33,7 @@ public class NewNoteController implements Initializable {
     private User user = DBConnect.getUser();
 
     private boolean CheckNote(){
+
         if (noteTitle.getText().length() == 0) return false;
 
         //check if notebook was chosen
@@ -73,8 +75,15 @@ public class NewNoteController implements Initializable {
                     String notebook = notebookChoice.getSelectionModel().getSelectedItem().toString();
                     DBConnect.insertNote(noteTitle.getText(), noteTitle.getText(), noteText.getText(), new Date(214135), notebook);
 
-                    //insert tags for note
-
+                    //insert tag for note
+                    Object item = tagsSetter.getSelectionModel().getSelectedItem();
+                    if (item != null && item.toString().length() > 0)
+                        try {
+                            System.out.println(item.toString());
+                            DBConnect.insertTag(item.toString(), DBConnect.getNota(noteTitle.getText()));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                 }
                 else{
                     warningMessage.setText("Invalid Note!");

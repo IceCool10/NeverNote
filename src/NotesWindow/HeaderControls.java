@@ -1,6 +1,7 @@
 package NotesWindow;
 
 
+import com.sun.org.apache.bcel.internal.generic.POP;
 import dbmodel.Nota;
 import dbmodel.Notebook;
 import dbmodel.Tag;
@@ -15,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import login.DBConnect;
 import login.Main;
@@ -24,6 +27,7 @@ import org.controlsfx.control.CheckComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class HeaderControls implements Initializable{
@@ -34,7 +38,8 @@ public class HeaderControls implements Initializable{
     public Label usernameLabel;
     public Button searchNotes, newNotebook, newNote;
 
-    private User user = DBConnect.getUser();
+    public static User user = DBConnect.getUser();
+    public static CheckComboBox notebooksChoiceBoxClone, tagsChoiceBoxClone;
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resource) {
@@ -42,7 +47,11 @@ public class HeaderControls implements Initializable{
         this.resource = resource;
 
         //set label text to username
-        this.usernameLabel.setText(user.getUsername());
+        usernameLabel.setText(user.getUsername());
+
+        //copy ChoiceBox to static clones for use in other controllers
+        notebooksChoiceBoxClone = notebooksChoiceBox;
+        tagsChoiceBoxClone = tagsChoiceBox;
 
         //create new notebook event
         newNotebook.setOnAction(new EventHandler<ActionEvent>() {
@@ -89,15 +98,6 @@ public class HeaderControls implements Initializable{
         });
 
         //populate checkComboBoxes
-        ArrayList<Notebook> notebooks = DBConnect.getAllNotebooks(user.getUsername());
-        for(Notebook nb : notebooks) {
-            ArrayList<Nota>  note = nb.getNotes();
-            for(Nota nota : note) {
-                notebooksChoiceBox.getItems().add(nota.getNume());
-                for(Tag tag : nota.tags) {
-                    tagsChoiceBox.getItems().add(tag.getNume());
-                }
-            }
-        }
+        StaticMethods.PopulateCheckBox(user, notebooksChoiceBox, tagsChoiceBox);
     }
 }

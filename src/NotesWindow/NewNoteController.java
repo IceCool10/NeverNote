@@ -19,7 +19,7 @@ public class NewNoteController implements Initializable {
         this.fxmlFileLocation = fxmlFileLocation;
         this.resource = resource;
 
-
+        
 
     }
 }

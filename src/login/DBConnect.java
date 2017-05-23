@@ -112,7 +112,7 @@ public class DBConnect {
         }
     }
 
-    public static boolean insertTag(String NumeTag,Nota nota) {
+    public static boolean insertTag(String NumeTag, Nota nota) {
         try {
             PreparedStatement insertTag = conn.prepareStatement("INSERT INTO TagInfo (NumeTag,IdNota)  values (?,?)");
             insertTag.setString(1,NumeTag);
@@ -155,7 +155,7 @@ public class DBConnect {
         }
     }
 
-    public static boolean insertNote(String nume,String titlu,String Nume,String text,Date date,String Notebook) {
+    public static boolean insertNote(String nume, String titlu, String text, Date date, String Notebook) {
         try {
             PreparedStatement insertNote = conn.prepareStatement("INSERT INTO Note (Nume,Titlu,Text,Data,Notebook) VALUES (?,?,?,?)");
             insertNote.setString(1,nume);
@@ -181,7 +181,7 @@ public class DBConnect {
         }
     }
 
-    public static boolean insertNotebook(String Nume,String Username) {
+    public static boolean insertNotebook(String Nume, String Username) {
         try {
             PreparedStatement insertNotebook = conn.prepareStatement("INSERT INTO Notebook (Nume,user) VALUES (?,?)");
             insertNotebook.setString(1,Nume);
@@ -235,7 +235,7 @@ public class DBConnect {
 
  */
     //functie de signup
-    public boolean Signup(String Username,String Password,String FirstName,String Lastname,String Email,LocalDate birthDate) {
+    public boolean Signup(String Username, String Password, String FirstName, String Lastname, String Email, LocalDate birthDate) {
         try {
             PreparedStatement preparedStatementVerify = conn.prepareStatement("SELECT * FROM Users WHERE Username = ? LIMIT 1");
             preparedStatementVerify.setString(1, Username);

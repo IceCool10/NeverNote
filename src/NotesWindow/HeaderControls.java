@@ -38,6 +38,7 @@ public class HeaderControls implements Initializable{
     public Label usernameLabel;
     public Button searchNotes, newNotebook, newNote;
 
+    //static clones
     public static User user = DBConnect.getUser();
     public static CheckComboBox notebooksChoiceBoxClone, tagsChoiceBoxClone;
 
@@ -98,6 +99,7 @@ public class HeaderControls implements Initializable{
         });
 
         //populate checkComboBoxes
-        StaticMethods.PopulateCheckBox(user, notebooksChoiceBox, tagsChoiceBox);
+        StaticMethods.PopulateNotebookCheckBox(user, notebooksChoiceBoxClone);
+        StaticMethods.PopulateTagCheckBox(user, tagsChoiceBoxClone);
     }
 }

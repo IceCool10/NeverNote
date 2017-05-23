@@ -32,6 +32,7 @@ public class NewNotebookController implements Initializable {
             if (nb.getNume().equals(x) == true)
                 ans = true;
 
+        if (x.length() == 0) return true;
         return ans;
     }
 
@@ -52,7 +53,8 @@ public class NewNotebookController implements Initializable {
                     DBConnect.insertNotebook(notebookName.getText(), user.getUsername());
 
                     //repopulate
-                    StaticMethods.PopulateCheckBox(HeaderControls.user, HeaderControls.notebooksChoiceBoxClone, HeaderControls.tagsChoiceBoxClone);
+                    StaticMethods.PopulateNotebookCheckBox(HeaderControls.user, HeaderControls.notebooksChoiceBoxClone);
+                    StaticMethods.PopulateTagCheckBox(HeaderControls.user, HeaderControls.tagsChoiceBoxClone);
                 }
                 else {
                     warningMessage.setText("Notebook already exists!");

@@ -5,17 +5,22 @@ import com.sun.org.apache.bcel.internal.generic.POP;
 import dbmodel.Nota;
 import dbmodel.Notebook;
 import dbmodel.Tag;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import login.DBConnect;
@@ -36,7 +41,7 @@ public class HeaderControls implements Initializable{
     public CheckComboBox notebooksChoiceBox, tagsChoiceBox;
     public Label usernameLabel;
     public Button searchNotes, newNotebook, newNote;
-
+    public ScrollPane scrollPane;
     //static clones
     public static User user = DBConnect.getUser();
     public static CheckComboBox notebooksChoiceBoxClone, tagsChoiceBoxClone;
@@ -100,5 +105,22 @@ public class HeaderControls implements Initializable{
         //populate checkComboBoxes
         StaticMethods.PopulateNotebookCheckBox(user, notebooksChoiceBoxClone);
         StaticMethods.PopulateTagCheckBox(user, tagsChoiceBoxClone);
+
+        VBox box = new VBox();
+        AnchorPane a = new AnchorPane();
+        Label titlu = new Label();
+        Label text = new Label();
+        box.setAlignment(Pos.TOP_LEFT);
+        ArrayList<Notebook> nb = DBConnect.getAllNotebooks(user.getUsername());
+        for(Notebook notebook : nb) {
+            for(Nota n : notebook.notes) {
+
+                Label nume = new Label();
+                nume.setText("Name : " + n.getNume() + "\n" + "Title : " + n.getTitlu() + "\n" + n.getText());
+                box.getChildren().addAll(nume);
+            }
+        }
+        scrollPane.setContent(box);
+
     }
 }

@@ -7,9 +7,10 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="750.0" stylesheets="@../css_files/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NotesWindow.HeaderControls">
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="750.0" stylesheets="@../css_files/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NotesWindow.HeaderControls">
    <children>
       <AnchorPane layoutX="142.0" layoutY="14.0" prefHeight="647.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,6 +19,9 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <content>
+                  <VBox fx:id="notesVboxContainer" prefHeight="150.0" prefWidth="749.0" spacing="20.0" />
+               </content>
             </ScrollPane>
          </children></AnchorPane>
       <HBox alignment="CENTER" layoutY="78.0" prefHeight="47.0" prefWidth="750.0" spacing="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

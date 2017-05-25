@@ -27,6 +27,7 @@ import login.DBConnect;
 import login.Main;
 import login.User;
 import org.controlsfx.control.CheckComboBox;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,6 +43,8 @@ public class HeaderControls implements Initializable{
     public Label usernameLabel;
     public Button searchNotes, newNotebook, newNote;
     public ScrollPane scrollPane;
+    public VBox notesVboxContainer;
+
     //static clones
     public static User user = DBConnect.getUser();
     public static CheckComboBox notebooksChoiceBoxClone, tagsChoiceBoxClone;
@@ -106,21 +109,37 @@ public class HeaderControls implements Initializable{
         StaticMethods.PopulateNotebookCheckBox(user, notebooksChoiceBoxClone);
         StaticMethods.PopulateTagCheckBox(user, tagsChoiceBoxClone);
 
-        VBox box = new VBox();
-        AnchorPane a = new AnchorPane();
-        Label titlu = new Label();
-        Label text = new Label();
-        box.setAlignment(Pos.TOP_LEFT);
+        notesVboxContainer.prefWidthProperty().bind(scrollPane.widthProperty());
         ArrayList<Notebook> nb = DBConnect.getAllNotebooks(user.getUsername());
         for(Notebook notebook : nb) {
-            for(Nota n : notebook.notes) {
+            for(Nota note : notebook.notes) {
 
-                Label nume = new Label();
-                nume.setText("Name : " + n.getNume() + "\n" + "Title : " + n.getTitlu() + "\n" + n.getText());
-                box.getChildren().addAll(nume);
+                AnchorPane anc = new AnchorPane();
+                anc.prefWidthProperty().bind(notesVboxContainer.widthProperty());
+
+                //add notes to AnchorPane
+                Label title = new Label();
+                title.setText(note.getTitlu());
+                title.setId("username");
+                AnchorPane.setTopAnchor(title, 15.0);
+                AnchorPane.setLeftAnchor(title, 15.0);
+
+                TextArea text = new TextArea();
+                text.setText(note.getText());
+                text.setPrefHeight(300);
+                text.prefWidthProperty().bind(anc.widthProperty());
+                AnchorPane.setTopAnchor(text, 70.0);
+                AnchorPane.setLeftAnchor(text, 15.0);
+                AnchorPane.setRightAnchor(text, 15.0);
+
+                anc.getChildren().addAll(text, title);
+
+                notesVboxContainer.getChildren().addAll(anc);
             }
         }
-        scrollPane.setContent(box);
+
+
+        scrollPane.setContent(notesVboxContainer);
 
     }
 }

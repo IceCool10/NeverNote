@@ -8,7 +8,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Observable;
+
 import dbmodel.*;
+import javafx.collections.ObservableList;
 
 import static login.DBConnect.getAllNotes;
 
@@ -307,6 +311,40 @@ public class DBConnect {
             System.out.println("Connection error!");
         }
         return resultSet;
+    }
+
+    public static ArrayList<Nota> searchNotes(ObservableList notes, ObservableList tags) throws SQLException{
+        ArrayList<Nota> note = new ArrayList<>();
+        String sql = "Select * from Note where Notebook in (";//?) union select * from Note join TagInfo on Note.Id=TagInfo.IdNota and TagInfo.IdNota in (?)";
+        for(int i = 0; i < notes.toArray().length;i++) {
+            sql += "'" + notes.toArray()[i]+"'";
+            if(i < notes.toArray().length-1)
+                sql += ',';
+        }
+        sql += ") union select Id,Nume,Titlu,Text,Data,Notebook from Note join TagInfo on Note.Id=TagInfo.IdNota and TagInfo.IdNota in (";
+        for(int i = 0; i < tags.toArray().length;i++) {
+            sql += "'" + tags.toArray()[i]+"'";
+            if(i < tags.toArray().length-1)
+                sql += ',';
+        }
+        sql += ")";
+        //Array array = conn.createArrayOf("VARCHAR",str);
+        //Array array2 = conn.createArrayOf("VARCHAR",tags.toArray());
+        //System.out.println(array.getArray());
+        PreparedStatement statement = conn.prepareStatement(sql);
+        //statement.setArray(1,array);
+        //statement.setArray(2,array2);
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()) {
+            String nume  = rs.getString("Nume");
+            String titlu = rs.getString("Titlu");
+            String text  = rs.getString("Text");
+            java.sql.Date date = rs.getDate("Data");
+            String Notebook    = rs.getString("Notebook");
+            System.out.println(rs.getString("Titlu") + "   " + rs.getString("Nume"));
+            note.add(new Nota(rs.getInt("Id"),nume,titlu,text,date,Notebook));
+        }
+        return note;
     }
 
     //Constructor

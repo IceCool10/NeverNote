@@ -27,10 +27,11 @@ import login.DBConnect;
 import login.Main;
 import login.User;
 import org.controlsfx.control.CheckComboBox;
-import sun.plugin.javascript.navig.Anchor;
+//import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -80,6 +81,21 @@ public class HeaderControls implements Initializable{
                 createNotebookWindow.setScene(scene);
 
                 createNotebookWindow.show();
+            }
+        });
+
+        searchNotes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+               System.out.println(notebooksChoiceBox.getCheckModel().getCheckedItems());
+                try {
+                    ArrayList<Nota> note = DBConnect.searchNotes(notebooksChoiceBox.getCheckModel().getCheckedItems(),tagsChoiceBox.getCheckModel().getCheckedItems());
+                    for(Nota n : note) {
+                        System.out.println(n.getText());
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

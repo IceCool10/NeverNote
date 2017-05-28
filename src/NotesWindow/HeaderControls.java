@@ -5,6 +5,7 @@ import com.sun.org.apache.bcel.internal.generic.POP;
 import dbmodel.Nota;
 import dbmodel.Notebook;
 import dbmodel.Tag;
+import devmodels.UInote;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -50,6 +51,8 @@ public class HeaderControls implements Initializable{
     public static User user = DBConnect.getUser();
     public static CheckComboBox notebooksChoiceBoxClone, tagsChoiceBoxClone;
 
+
+    public ArrayList<UInote> vboxList = new ArrayList<>();
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resource) {
         this.fxmlFileLocation = fxmlFileLocation;
@@ -89,10 +92,21 @@ public class HeaderControls implements Initializable{
             public void handle(ActionEvent actionEvent) {
                System.out.println(notebooksChoiceBox.getCheckModel().getCheckedItems());
                 try {
-                    ArrayList<Nota> note = DBConnect.searchNotes(notebooksChoiceBox.getCheckModel().getCheckedItems(),tagsChoiceBox.getCheckModel().getCheckedItems());
-                    for(Nota n : note) {
-                        System.out.println(n.getText());
-                    }
+                    //clear Vbox
+                    notesVboxContainer.getChildren().remove(0, notesVboxContainer.getChildren().size());
+
+                    //gen notes from user filter
+                    ArrayList<Nota> notes = DBConnect.searchNotes(notebooksChoiceBox.getCheckModel().getCheckedItems(),tagsChoiceBox.getCheckModel().getCheckedItems());
+                    while (vboxList.size() > 0) vboxList.remove(0);
+
+                    for (Nota n : notes) vboxList.add(new UInote(n, notesVboxContainer));
+
+                    notesVboxContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+                    //add notes to ui
+                    for (UInote note : vboxList) notesVboxContainer.getChildren().add(note.anc);
+
+                    scrollPane.setContent(notesVboxContainer);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -124,38 +138,5 @@ public class HeaderControls implements Initializable{
         //populate checkComboBoxes
         StaticMethods.PopulateNotebookCheckBox(user, notebooksChoiceBoxClone);
         StaticMethods.PopulateTagCheckBox(user, tagsChoiceBoxClone);
-
-        notesVboxContainer.prefWidthProperty().bind(scrollPane.widthProperty());
-        ArrayList<Notebook> nb = DBConnect.getAllNotebooks(user.getUsername());
-        for(Notebook notebook : nb) {
-            for(Nota note : notebook.notes) {
-
-                AnchorPane anc = new AnchorPane();
-                anc.prefWidthProperty().bind(notesVboxContainer.widthProperty());
-
-                //add notes to AnchorPane
-                Label title = new Label();
-                title.setText(note.getTitlu());
-                title.setId("username");
-                AnchorPane.setTopAnchor(title, 15.0);
-                AnchorPane.setLeftAnchor(title, 15.0);
-
-                TextArea text = new TextArea();
-                text.setText(note.getText());
-                text.setPrefHeight(300);
-                text.prefWidthProperty().bind(anc.widthProperty());
-                AnchorPane.setTopAnchor(text, 70.0);
-                AnchorPane.setLeftAnchor(text, 15.0);
-                AnchorPane.setRightAnchor(text, 15.0);
-
-                anc.getChildren().addAll(text, title);
-
-                notesVboxContainer.getChildren().addAll(anc);
-            }
-        }
-
-
-        scrollPane.setContent(notesVboxContainer);
-
     }
 }

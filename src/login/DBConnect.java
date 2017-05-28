@@ -155,7 +155,7 @@ public class DBConnect {
         }
     }
 
-    public static boolean updateNote(String Text,String Nume) {
+    public static boolean updateNote(String Text, String Nume) {
         try {
             PreparedStatement updateNote = conn.prepareStatement("UPDATE Note SET Text = ? WHERE Nume = ?");
             updateNote.setString(1,Text);
